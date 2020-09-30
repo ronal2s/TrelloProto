@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useDrop } from 'react-dnd'
 import AddIcon from '@material-ui/icons/Add';
-
+import { Skeleton } from "@material-ui/lab"
 import { GlobalContext } from '../../../contexts/global';
 import { ItemTypes } from "../../../utils/enums";
 import { ContentCard, CornerFab } from "../../../globalStyles";
@@ -51,6 +51,10 @@ export const Dustbin = (props: IDustbin) => {
         <>
             <ContentCard ref={drop} >
                 {props.name}
+                {globalContext.data.loading && <>
+                    <Skeleton variant="rect" width={200} /> <br />
+                    <Skeleton variant="rect" width={285} height={170} />
+                </>}
                 <br />
                 {((globalContext?.data.items) as any)[props.name].map((value: any, key: number) => {
                     return (
