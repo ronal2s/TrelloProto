@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Dustbin } from './dustbin'
 import { ItemTypes } from '../../../utils/enums';
 

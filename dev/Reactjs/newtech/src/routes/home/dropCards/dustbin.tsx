@@ -46,7 +46,6 @@ export const Dustbin = (props: IDustbin) => {
 
 
     const globalContext = useContext(GlobalContext);
-    // console.log("Prueba: ", props.name, (globalContext.data.items as any)['In Progress'])
     return (
         <>
             <ContentCard ref={drop} >

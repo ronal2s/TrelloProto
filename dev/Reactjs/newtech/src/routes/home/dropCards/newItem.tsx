@@ -33,7 +33,6 @@ function ModalItem(props: IModal) {
         if (props.selectedItem) {
             setForm({ ...props.selectedItem });
         }
-        // setForm({ fullname: props.member?.value.fullname, password: props.member?.value.password });
     }
 
     const onClose = () => {
@@ -63,7 +62,6 @@ function ModalItem(props: IModal) {
 
     const onSave = () => {
         const obj = { ...globalContext };
-        // data.data.(items)[ItemTypes.PENDING].push({ ...form });
         const items: any = { ...globalContext.data.items };
         if (props.selectedItem) {
             const index = items[props.selectedItem.place].findIndex((el: any) => el.id === props.selectedItem.id);
@@ -75,14 +73,12 @@ function ModalItem(props: IModal) {
         globalContext.setContext({ ...obj })
         saveData(obj);
         onClose();
-        // globalContext.setContext({ data: { items: { ...globalContext.data.items } } })
     }
 
 
     return (
         <Dialog open={props.open} onClose={onClose} onEnter={onEnter} maxWidth="xs" fullWidth >
             <DialogTitle>
-                {/* <Title color={COLORS.LABEL} >Log In Information</Title> */}
             </DialogTitle>
             <DialogContent>
                 <TextField fullwidth label="Title" name="title" value={form.title} onChange={handleInputs} />
@@ -101,10 +97,7 @@ function ModalItem(props: IModal) {
 
                     />
                 </MuiPickersUtilsProvider>
-
                 <TextField fullwidth label="Description" name="description" variant="outlined" rows={5} multiline value={form.description} onChange={handleInputs} />
-                {/* </FormControl>
-                <FormControl> */}
             </DialogContent>
             <DialogActions>
                 {props.selectedItem && <Button color="secondary" onClick={onRequestDelete} >Delete</Button>}

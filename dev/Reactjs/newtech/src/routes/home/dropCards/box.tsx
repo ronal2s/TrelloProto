@@ -23,7 +23,7 @@ export const Box = (props: IBox) => {
                     dropResult.allowedDropEffect === dropResult.dropEffect
                 if (isDropAllowed) {
                     console.log("Drop result: ", dropResult)
-                    test(item as any, dropResult.name);
+                    handleCard(item as any, dropResult.name);
                 }
             }
         },
@@ -34,7 +34,7 @@ export const Box = (props: IBox) => {
 
     const globalContext = useContext(GlobalContext);
 
-    const test = (item: { name: string, type: string, place: string, id: number | string }, newPlace: string) => {
+    const handleCard = (item: any, newPlace: string) => {
         console.log("Actual: ", item.place, " New", newPlace)
         if (newPlace !== item.place) {
             const items = globalContext.data.items;
