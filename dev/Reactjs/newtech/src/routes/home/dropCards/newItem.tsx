@@ -65,9 +65,9 @@ function ModalItem(props: IModal) {
         const items: any = { ...globalContext.data.items };
         if (props.selectedItem) {
             const index = items[props.selectedItem.place].findIndex((el: any) => el.id === props.selectedItem.id);
-            items[props.selectedItem.place][index] = { ...form, dueDate: (form.dueDate as unknown as Date).toLocaleDateString("en") };
+            items[props.selectedItem.place][index] = { ...form, dueDate: (form.dueDate as any) instanceof Date? (form.dueDate as unknown as Date).toLocaleDateString("en"): form.dueDate };
         } else {
-            items[ItemTypes.PENDING].push({ ...form, dueDate: (form.dueDate as unknown as Date).toLocaleDateString("en") });
+            items[ItemTypes.PENDING].push({ ...form, dueDate: (form.dueDate as any) instanceof Date? (form.dueDate as unknown as Date).toLocaleDateString("en"): form.dueDate });
         }
         obj.data.items = { ...items };
         globalContext.setContext({ ...obj })
