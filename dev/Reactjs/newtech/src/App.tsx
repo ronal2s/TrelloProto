@@ -22,9 +22,11 @@ function App() {
           ...json,
         })
       }, 5000)
+    } else {
+      _setContext({ data: { ...context.data, loading: false } })
     }
   }, [])
-console.log(context.data.loading)
+
   return (
     <GlobalContext.Provider value={{ ...context, setContext: _setContext }}>
       <Container />
