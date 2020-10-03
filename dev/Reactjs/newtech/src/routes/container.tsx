@@ -3,7 +3,7 @@ import { Divider, List } from '@material-ui/core';
 import {
   BrowserRouter as Router, Switch, Route,
 } from "react-router-dom";
-import Home from '../routes/home';
+import Home from '../routes/homeMulti';
 //Custom components
 import CustomAppBar from '../components/appbar';
 import CustomLink from '../components/listItem';

@@ -22,7 +22,7 @@ const ContentView = styled.div({
 })
 
 const ContentCard = styled.div((props: any) => ({
-    minHeight: props.height ? props.height : 250, width: 300,
+    minHeight: props.height ? props.height : 250, width: 250,
     marginRight: 30, marginBbottom: 10, padding: "1rem", float: "left",
     backgroundColor: "#ebecf0", borderRadius: 10, fontWeight: "bold"
 }))

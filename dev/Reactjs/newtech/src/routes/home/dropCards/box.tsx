@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { COLORS, ItemTypes } from '../../../utils/enums'
+// @ts-ignore
 import { useDrag } from 'react-dnd'
 import { GlobalContext } from '../../../contexts/global'
 import { Card, CardContent, Typography } from '@material-ui/core'
@@ -15,18 +16,19 @@ export const Box = (props: IBox) => {
     const item = { ...props.item, type: ItemTypes.BOX }
     const [{ opacity }, drag] = useDrag({
         item,
+        // @ts-ignore
         end(item, monitor) {
             const dropResult = monitor.getDropResult()
             if (item && dropResult) {
                 const isDropAllowed =
-                    dropResult.allowedDropEffect === 'any' ||
-                    dropResult.allowedDropEffect === dropResult.dropEffect
+                dropResult.allowedDropEffect === 'any' ||
+                dropResult.allowedDropEffect === dropResult.dropEffect
                 if (isDropAllowed) {
-                    console.log("Drop result: ", dropResult)
                     handleCard(item as any, dropResult.name);
                 }
             }
         },
+        // @ts-ignore
         collect: (monitor) => ({
             opacity: monitor.isDragging() ? 0.4 : 1,
         }),

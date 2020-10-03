@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+// @ts-ignore
 import { useDrop } from 'react-dnd'
 import AddIcon from '@material-ui/icons/Add';
 import { Skeleton } from "@material-ui/lab"
@@ -22,6 +23,7 @@ export const Dustbin = (props: IDustbin) => {
             name: `${props.name}`,
             allowedDropEffect: props.allowedDropEffect,
         }),
+        // @ts-ignore
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
