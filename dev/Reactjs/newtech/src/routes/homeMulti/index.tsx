@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import AddIcon from '@material-ui/icons/Add';
-import { Fab } from '@material-ui/core';
 // @ts-ignore
 import { DragDropContext } from 'react-dnd';
 // @ts-ignore
@@ -12,6 +10,7 @@ import { CornerFab } from '../../globalStyles';
 //Custom components
 import ItemsDragLayer from './ItemsDragLayer';
 import Cart from './Cart'
+import FabButton from "../../components/fabButton/fabButton";
 //Modals
 import ModalItem from "./newItem";
 import { GlobalContext } from '../../contexts/global';
@@ -162,11 +161,7 @@ function App() {
         <Cart id={ItemTypes.PENDING} fields={data.items["In Progress"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
         <Cart id={ItemTypes.DONE} fields={data.items.Done} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
       </div>
-      <CornerFab>
-        <Fab size="large" color="primary" aria-label="add" onClick={openModal} >
-          <AddIcon />
-        </Fab>
-      </CornerFab>
+      <FabButton openModal={openModal} />
       {/* <ModalItem selectedItem={selectedItem} onClose={closeModal} open={modal} /> */}
       <ModalItem onNewItem={onNewItem} onDelete={onDelete} selectedItem={selectedItem} onClose={closeModal} open={modal} />
     </div>
