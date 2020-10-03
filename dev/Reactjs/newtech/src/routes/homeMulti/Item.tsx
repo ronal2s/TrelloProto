@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { DragSource } from 'react-dnd';
 //@ts-ignore
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { Tag } from '../../globalStyles';
+import { Tag, Subtitle } from '../../globalStyles';
 import { COLORS } from '../../utils/enums';
 
 const dragSource = DragSource;
@@ -25,7 +25,7 @@ const fieldSource = {
   beginDrag(props: any) {
     console.log(props.name)
     let dragFields;
-    if (props.selectedFields.find((field: any) => field === props.name)) {
+    if (props.selectedFields.find((field: any) => field.id === props.name.id)) {
       dragFields = props.selectedFields;
     } else {
       dragFields = [...props.selectedFields, props.name];
@@ -70,7 +70,7 @@ function Item(props: any) {
 
 
   const handleRowSelection = (cmdKey: any, shiftKey: any, index: any, item: any) => {
-    if(!cmdKey && !shiftKey) {
+    if (!cmdKey && !shiftKey) {
       props.onEditItem(item);
       // alert("Heyyyyy loco")
     } else {
@@ -86,6 +86,9 @@ function Item(props: any) {
           <Typography component="h2">
             {props.name.title}
           </Typography>
+          {props.name.assignee != "" && <Subtitle>
+            assignee to {props.name.assignee}
+          </Subtitle>}
           {props.name.tag.length > 0 && <Tag width={props.name.tag.length * 10} float="left"  >{props.name.tag}</Tag>}
           <Tag width={85} color={COLORS.DEFAULT_ICON_COLOR} >{props.name.dueDate}</Tag>
           <Typography component="h3">

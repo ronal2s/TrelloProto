@@ -12,6 +12,7 @@ import TextSelect from "../../components/_textSelect";
 import models from "../../utils/models";
 //Modal
 import ModalQuestion from "./confirmDeleteModal";
+import { getUIDCode } from "../../utils/functions";
 
 interface IModal {
     open: boolean,
@@ -22,7 +23,7 @@ interface IModal {
 }
 
 function ModalItem(props: IModal) {
-    const [form, setForm] = useState({ ...models.item });
+    const [form, setForm] = useState({ ...models.item, id: getUIDCode() });
     const [modalQuestion, setModalQuestion] = useState(false);
 
     const onEnter = () => {

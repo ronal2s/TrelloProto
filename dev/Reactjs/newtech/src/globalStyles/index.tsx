@@ -21,6 +21,10 @@ const ContentView = styled.div({
     padding: 10
 })
 
+const Subtitle = styled.h5({
+    margin: 0, color: COLORS.PRIMARY_DARK, fontWeight: 400, marginBottom: 10
+})
+
 const ContentCard = styled.div((props: any) => ({
     minHeight: props.height ? props.height : 250, width: 250,
     marginRight: 30, marginBbottom: 10, padding: "1rem", float: "left",
@@ -52,5 +56,5 @@ export {
     ContentView,
     ContentCard,
     Tag, CornerFab,
-    CartContainer
+    CartContainer, Subtitle
 }

@@ -5,7 +5,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 //Utils
 import { ItemTypes } from '../../utils/enums';
-import { saveData, setLoadingData } from '../../utils/functions';
+import { saveData, setLoadingData, searchData } from '../../utils/functions';
 import { CartContainer } from '../../globalStyles';
 import { GlobalContext } from '../../contexts/global';
 //Custom components
@@ -14,6 +14,7 @@ import Cart from './Cart'
 import FabButton from "../../components/fabButton/fabButton";
 //Modals
 import ModalItem from "./newItem";
+import CustomTextField from '../../components/_textField';
 
 
 function App() {
@@ -26,12 +27,22 @@ function App() {
     }
   });
 
+  const [backupData, setBackupData] = useState({
+    items: {
+      'To Do': [],
+      'Done': [],
+      'In Progress': []
+    }
+  });
+
   const [modal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [search, setSearch] = useState("");
 
   const globalContext = useContext(GlobalContext);
 
   useEffect(() => {
+    // window.localStorage.removeItem("data")
     const string_json = window.localStorage.getItem("data");
     let json: any = null;
     if (string_json) {
@@ -40,31 +51,39 @@ function App() {
         setData({
           items: { ...json },
         });
+        setBackupData({ items: { ...json } });
         setLoadingData(globalContext, false);
-      }, 5000)
+      }, 5)
     } else {
       setLoadingData(globalContext, false);
     }
   }, [])
 
   const addItemsToCart = (items: any[], source: string, dropResult: any) => {
+
+    const reorder = (data: any) => {
+      let _items = [];
+      const _data = {...data}
+      for (let i = 0; i < items.length; i++) {
+        //Deleting from previous place:
+        const index = _data.items[source].findIndex((item: any) => item.id === items[i].id);
+        _data.items[items[i].place].splice(index, 1)
+        _items.push({ ...items[i], place: toPlace })
+      }
+
+      _data.items[toPlace] = _data.items[toPlace].concat(_items);
+
+      const data_string = JSON.stringify(_data.items);
+      window.localStorage.setItem("data", data_string);
+      setData({ ..._data })
+    }
     let _data: any = { ...data }
-    let _items = [];
+    reorder(_data);
 
-    for (let i = 0; i < items.length; i++) {
-      _items.push({ ...items[i], place: toPlace })
+    if (search.length) {
+      reorder(backupData);
+      setSearch("");
     }
-
-    _data.items[toPlace] = _data.items[toPlace].concat(_items);
-
-    for (let i = 0; i < items.length; i++) {
-      const element = items[i];
-      const index = _data.items[element.place].findIndex((item: any) => item.id === element.id);
-      _data.items[element.place].splice(index, 1)
-    }
-    const data_string = JSON.stringify(_data.items);
-    window.localStorage.setItem("data", data_string);
-    setData({ ..._data })
   }
 
   const openModal = () => {
@@ -104,14 +123,29 @@ function App() {
     openModal();
   }
 
+  const handleInputs = (name: string, value: string) => {
+    const newItems: any = {};
+    if (value.length) {
+      newItems[ItemTypes.DONE] = searchData(data, ItemTypes.DONE, value);
+      newItems[ItemTypes.PENDING] = searchData(data, ItemTypes.PENDING, value);
+      newItems[ItemTypes.TODO] = searchData(data, ItemTypes.TODO, value);
+      setData({ items: { ...newItems } });
+    } else {
+      setData({ ...backupData });
+    }
+    setSearch(value);
+  }
+
   return (
     <div >
       <h4>Use Shift or CTRL key to multi-select</h4>
+      <CustomTextField label="Search" name="search" value={search} onChange={handleInputs} />
+      <br /><br />
       <ItemsDragLayer />
       <CartContainer>
-        <Cart id={ItemTypes.TODO} fields={data.items["To Do"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
-        <Cart id={ItemTypes.PENDING} fields={data.items["In Progress"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
-        <Cart id={ItemTypes.DONE} fields={data.items.Done} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
+        <Cart id={ItemTypes.TODO} fields={[...data.items["To Do"]]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
+        <Cart id={ItemTypes.PENDING} fields={[...data.items["In Progress"]]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
+        <Cart id={ItemTypes.DONE} fields={[...data.items.Done]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
       </CartContainer>
       <FabButton openModal={openModal} />
       {/* <ModalItem selectedItem={selectedItem} onClose={closeModal} open={modal} /> */}
