@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 //@ts-ignore
 import { DropTarget } from 'react-dnd';
+import CardSkeleton from '../../components/cardSkeleton';
+import { GlobalContext } from '../../contexts/global';
 import { ContentCard } from '../../globalStyles';
 import Item from './Item';
 
@@ -101,11 +103,14 @@ function Cart(props: any) {
     index={index}
   />));
 
+  const globalContext = useContext(GlobalContext);
+
   return props.connectDropTarget(
     <div>
       <ContentCard>
         <span>{props.id}</span>
-        {items}
+        {!globalContext.loading && items}
+        {globalContext.loading && <CardSkeleton/>}
       </ContentCard>
 
     </div>

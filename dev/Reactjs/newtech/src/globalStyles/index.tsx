@@ -27,6 +27,11 @@ const ContentCard = styled.div((props: any) => ({
     backgroundColor: "#ebecf0", borderRadius: 10, fontWeight: "bold"
 }))
 
+const CartContainer = styled.div((props: any) => ({
+    alignItems: 'stretch',
+    alignContent: 'stretch',
+}))
+
 const CornerFab = styled.div(() => ({
     position: "absolute", right: 10, bottom: 10
 }))
@@ -46,5 +51,6 @@ export {
     NavigationView,
     ContentView,
     ContentCard,
-    Tag, CornerFab
+    Tag, CornerFab,
+    CartContainer
 }

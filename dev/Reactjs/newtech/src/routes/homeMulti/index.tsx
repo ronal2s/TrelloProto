@@ -5,82 +5,34 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 //Utils
 import { ItemTypes } from '../../utils/enums';
-import { getUIDCode, saveData } from '../../utils/functions';
-import { CornerFab } from '../../globalStyles';
+import { saveData, setLoadingData } from '../../utils/functions';
+import { CartContainer } from '../../globalStyles';
+import { GlobalContext } from '../../contexts/global';
 //Custom components
 import ItemsDragLayer from './ItemsDragLayer';
 import Cart from './Cart'
 import FabButton from "../../components/fabButton/fabButton";
 //Modals
 import ModalItem from "./newItem";
-import { GlobalContext } from '../../contexts/global';
 
-const styles = {
-  main: {
-    width: '50%',
-    margin: '0 auto',
-    textAlign: 'center',
-  },
-  content: {
-    // display: 'flex',
-    // flexFlow: 'row',
-    // justifyContent: 'left',
-    alignItems: 'stretch',
-    alignContent: 'stretch',
-  },
-};
 
 function App() {
   const [toPlace, setToPlace] = useState("");
   const [data, setData] = useState({
     items: {
-      'To Do': [
-        // {
-        //   title: "Prueba1", description: "",
-        //   tag: "", assignee: "",
-        //   dueDate: new Date().toLocaleDateString("en"),
-        //   place: ItemTypes.TODO,
-        //   id: getUIDCode()
-        // },
-        // {
-        //   title: "Prueba2", description: "",
-        //   tag: "", assignee: "",
-        //   dueDate: new Date().toLocaleDateString("en"),
-        //   place: ItemTypes.TODO,
-        //   id: getUIDCode()
-        // },
-      ],
-      'Done': [
-        // {
-        //   title: "Prueba2", description: "",
-        //   tag: "", assignee: "",
-        //   dueDate: new Date().toLocaleDateString("en"),
-        //   place: ItemTypes.DONE,
-        //   id: getUIDCode()
-        // }
-      ],
-      'In Progress': [
-        // {
-        //   title: "Prueba3", description: "",
-        //   tag: "", assignee: "",
-        //   dueDate: new Date().toLocaleDateString("en"),
-        //   place: ItemTypes.PENDING,
-        //   id: getUIDCode()
-        // }
-      ]
+      'To Do': [],
+      'Done': [],
+      'In Progress': []
     }
   });
 
   const [modal, setModal] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const globalContext = useContext(GlobalContext);
 
   useEffect(() => {
-    // window.localStorage.removeItem("data");
     const string_json = window.localStorage.getItem("data");
-    console.log(string_json);
     let json: any = null;
     if (string_json) {
       json = JSON.parse(string_json);
@@ -88,10 +40,10 @@ function App() {
         setData({
           items: { ...json },
         });
-        setLoading(false);
-      }, 5)
+        setLoadingData(globalContext, false);
+      }, 5000)
     } else {
-      setLoading(false);
+      setLoadingData(globalContext, false);
     }
   }, [])
 
@@ -118,7 +70,7 @@ function App() {
   const openModal = () => {
     setModal(true);
   }
-  
+
   const closeModal = () => {
     setSelectedItem(null);
     setModal(false);
@@ -156,11 +108,11 @@ function App() {
     <div >
       <h4>Use Shift or CTRL key to multi-select</h4>
       <ItemsDragLayer />
-      <div style={styles.content}>
+      <CartContainer>
         <Cart id={ItemTypes.TODO} fields={data.items["To Do"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
         <Cart id={ItemTypes.PENDING} fields={data.items["In Progress"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
         <Cart id={ItemTypes.DONE} fields={data.items.Done} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
-      </div>
+      </CartContainer>
       <FabButton openModal={openModal} />
       {/* <ModalItem selectedItem={selectedItem} onClose={closeModal} open={modal} /> */}
       <ModalItem onNewItem={onNewItem} onDelete={onDelete} selectedItem={selectedItem} onClose={closeModal} open={modal} />
