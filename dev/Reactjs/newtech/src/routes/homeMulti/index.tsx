@@ -137,14 +137,19 @@ function App() {
     saveData(items);
   }
 
+  const onSelectItem = (item: any) => {
+    setSelectedItem(item);
+    openModal();
+  }
+
   return (
     <div >
       <h4>Use Shift or CTRL key to multi-select</h4>
       <ItemsDragLayer />
       <div style={styles.content}>
-        <Cart id={ItemTypes.TODO} fields={data.items["To Do"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} />
-        <Cart id={ItemTypes.PENDING} fields={data.items["In Progress"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} />
-        <Cart id={ItemTypes.DONE} fields={data.items.Done} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} />
+        <Cart id={ItemTypes.TODO} fields={data.items["To Do"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
+        <Cart id={ItemTypes.PENDING} fields={data.items["In Progress"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem}/>
+        <Cart id={ItemTypes.DONE} fields={data.items.Done} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem}/>
       </div>
       <CornerFab>
         <Fab size="large" color="primary" aria-label="add" onClick={openModal} >
@@ -152,7 +157,7 @@ function App() {
         </Fab>
       </CornerFab>
       {/* <ModalItem selectedItem={selectedItem} onClose={closeModal} open={modal} /> */}
-      <ModalItem onNewItem={onNewItem} selectedItem={null} onClose={closeModal} open={modal} />
+      <ModalItem onNewItem={onNewItem} selectedItem={selectedItem} onClose={closeModal} open={modal} />
     </div>
   );
 }

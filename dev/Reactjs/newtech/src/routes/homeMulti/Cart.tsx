@@ -58,7 +58,7 @@ function Cart(props: any) {
     const fields = props.fields;
     const field = index < 0 ? '' : fields[index];
     const _lastSelectedIndex = index;
-    if (!cmdKey && !shiftKey) {
+    if (!cmdKey && !shiftKey) {      
       // _selectedFields = [field];
       _selectedFields = [];
     } else if (shiftKey) {
@@ -96,6 +96,7 @@ function Cart(props: any) {
     clearItemSelection={clearItemSelection}
     selectedFields={selectedFields}
     handleSelection={handleItemSelection}
+    onClick={props.onSelectItem}
     toPlace={props.id}
     index={index}
   />));
