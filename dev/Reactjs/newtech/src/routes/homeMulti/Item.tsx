@@ -71,7 +71,8 @@ function Item(props: any) {
 
   const handleRowSelection = (cmdKey: any, shiftKey: any, index: any, item: any) => {
     if(!cmdKey && !shiftKey) {
-      props.onClick(item);
+      props.onEditItem(item);
+      // alert("Heyyyyy loco")
     } else {
       props.handleSelection(index, cmdKey, shiftKey);
     }

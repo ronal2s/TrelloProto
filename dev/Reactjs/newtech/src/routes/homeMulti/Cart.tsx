@@ -96,7 +96,7 @@ function Cart(props: any) {
     clearItemSelection={clearItemSelection}
     selectedFields={selectedFields}
     handleSelection={handleItemSelection}
-    onClick={props.onSelectItem}
+    onEditItem={props.onSelectItem}
     toPlace={props.id}
     index={index}
   />));
