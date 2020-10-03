@@ -21,6 +21,7 @@ interface IModal {
     onClose: () => void,
     selectedItem: any,
     onNewItem: (item: any) => void,
+    onDelete: (item: any) => void,
 }
 
 function ModalItem(props: IModal) {
@@ -50,13 +51,7 @@ function ModalItem(props: IModal) {
     const closeModalQuestion = () => setModalQuestion(false);
 
     const onDelete = () => {
-        const obj = { ...globalContext };
-        const items: any = { ...globalContext.data.items };
-        const index = items[props.selectedItem.place].findIndex((el: any) => el.id === props.selectedItem.id);
-        items[props.selectedItem.place].splice(index, 1);
-        obj.data.items = { ...items };
-        globalContext.setContext({ ...obj })
-        saveData(obj);
+        props.onDelete(props.selectedItem)
         onClose();
         closeModalQuestion();
     }

@@ -50,7 +50,6 @@ function FieldDragLayer(props: any) {
   const { item, itemType, isDragging } = props;
 
   const renderItem = (type: string, item: any) => {
-    // [IMPORTANTE]
     switch (type) {
       case 'ITEM':
         return (

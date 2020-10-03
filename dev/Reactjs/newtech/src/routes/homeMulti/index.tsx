@@ -87,7 +87,7 @@ function App() {
       json = JSON.parse(string_json);
       setTimeout(() => {
         setData({
-          items: {...json},
+          items: { ...json },
         });
         setLoading(false);
       }, 5)
@@ -119,8 +119,9 @@ function App() {
   const openModal = () => {
     setModal(true);
   }
-
+  
   const closeModal = () => {
+    setSelectedItem(null);
     setModal(false);
   }
 
@@ -134,6 +135,16 @@ function App() {
       items[ItemTypes.TODO].push({ ...item, dueDate: (item.dueDate as any) instanceof Date ? (item.dueDate as unknown as Date).toLocaleDateString("en") : item.dueDate });
     }
     setData({ items: { ...items } })
+    console.log("Items: ", items)
+    saveData(items);
+  }
+
+  const onDelete = (item: any) => {
+    const items: any = { ...data.items };
+    const _selectedItem: any = item;
+    const index = items[_selectedItem.place].findIndex((el: any) => el.id === _selectedItem.id);
+    items[_selectedItem.place].splice(index, 1);
+    setData({ items: { ...items } });
     saveData(items);
   }
 
@@ -148,8 +159,8 @@ function App() {
       <ItemsDragLayer />
       <div style={styles.content}>
         <Cart id={ItemTypes.TODO} fields={data.items["To Do"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
-        <Cart id={ItemTypes.PENDING} fields={data.items["In Progress"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem}/>
-        <Cart id={ItemTypes.DONE} fields={data.items.Done} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem}/>
+        <Cart id={ItemTypes.PENDING} fields={data.items["In Progress"]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
+        <Cart id={ItemTypes.DONE} fields={data.items.Done} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
       </div>
       <CornerFab>
         <Fab size="large" color="primary" aria-label="add" onClick={openModal} >
@@ -157,7 +168,7 @@ function App() {
         </Fab>
       </CornerFab>
       {/* <ModalItem selectedItem={selectedItem} onClose={closeModal} open={modal} /> */}
-      <ModalItem onNewItem={onNewItem} selectedItem={selectedItem} onClose={closeModal} open={modal} />
+      <ModalItem onNewItem={onNewItem} onDelete={onDelete} selectedItem={selectedItem} onClose={closeModal} open={modal} />
     </div>
   );
 }
