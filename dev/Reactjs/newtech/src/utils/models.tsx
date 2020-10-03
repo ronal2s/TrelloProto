@@ -6,7 +6,7 @@ const models = {
         title: "", description: "",
         tag: "", assignee: "",
         dueDate: new Date().toLocaleDateString("en"),
-        place: ItemTypes.PENDING,
+        place: ItemTypes.TODO,
         id: getUIDCode()
     }
 }

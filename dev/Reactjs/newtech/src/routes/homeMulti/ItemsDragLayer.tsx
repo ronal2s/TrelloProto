@@ -54,7 +54,7 @@ function FieldDragLayer(props: any) {
     switch (type) {
       case 'ITEM':
         return (
-          <ItemsTemplate cards={item.fields} />
+          <ItemsTemplate items={item.fields} />
         );
       default:
         return null;

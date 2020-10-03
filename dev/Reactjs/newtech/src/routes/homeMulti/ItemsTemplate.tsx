@@ -12,8 +12,8 @@ const getFieldStyle = (isDragging: boolean) => {
   return style;
 };
 
-const ItemsTemplate = ({ cards }: any) => {
- const rows = cards.map((field: any) => (<div key={field.id} style={getFieldStyle(false)}>
+const ItemsTemplate = ({ items }: any) => {
+ const rows = items.map((field: any) => (<div key={field.id} style={getFieldStyle(false)}>
       {field.title}
     </div>));
   return (<div>{rows}</div>);

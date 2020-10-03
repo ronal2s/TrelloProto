@@ -54,13 +54,13 @@ function Cart(props: any) {
 
 
   const handleItemSelection = (index: number, cmdKey: any, shiftKey: any) => {
-    console.log(index, cmdKey, shiftKey)
     let _selectedFields: any[];
     const fields = props.fields;
     const field = index < 0 ? '' : fields[index];
     const _lastSelectedIndex = index;
     if (!cmdKey && !shiftKey) {
-      _selectedFields = [field];
+      // _selectedFields = [field];
+      _selectedFields = [];
     } else if (shiftKey) {
       if (lastSelectedIndex >= index) {
         _selectedFields = [].concat.apply(selectedFields,
@@ -70,6 +70,7 @@ function Cart(props: any) {
           fields.slice(lastSelectedIndex + 1, index + 1));
       }
     } else if (cmdKey) {
+      // console.log("Field: ", field)
       const foundIndex = selectedFields.findIndex((f: any) => f === field);
       // If found remove it to unselect it.
       if (foundIndex >= 0) {

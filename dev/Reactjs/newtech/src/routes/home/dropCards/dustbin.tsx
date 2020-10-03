@@ -3,12 +3,15 @@ import React, { useContext, useState } from 'react'
 import { useDrop } from 'react-dnd'
 import AddIcon from '@material-ui/icons/Add';
 import { Skeleton } from "@material-ui/lab"
+import { Fab } from '@material-ui/core';
+//Custom components
+import { Box } from './box';
+//Utils
 import { GlobalContext } from '../../../contexts/global';
 import { ItemTypes } from "../../../utils/enums";
 import { ContentCard, CornerFab } from "../../../globalStyles";
-import { Box } from './box';
+//Modals
 import ModalItem from "./newItem";
-import { Fab } from '@material-ui/core';
 
 
 interface IDustbin {
@@ -71,6 +74,4 @@ export const Dustbin = (props: IDustbin) => {
             <ModalItem selectedItem={selectedItem} onClose={closeModal} open={modal} />
         </>
     )
-
-
 }
