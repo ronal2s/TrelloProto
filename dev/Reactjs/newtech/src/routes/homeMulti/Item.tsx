@@ -78,12 +78,9 @@ function Item(props: any) {
     }
   }
 
-
-  // const selected = this.props.selectedFields.find(field => this.props.name === field);
   const selected = props.selectedFields.find((field: any) => props.name.title === field.title);
   return props.connectDragSource(
     <div onClick={(e) => handleRowSelection(e.ctrlKey, e.shiftKey, props.index, props.name)}>
-      {/* {props.name.title} */}
       <Card style={{ marginBottom: 5, cursor: "pointer", ...getFieldStyle(false, selected) }} onClick={props.onClick} >
         <CardContent>
           <Typography component="h2">

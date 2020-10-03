@@ -9,10 +9,7 @@ import {
 import TextField from "../../components/_textField";
 import TextSelect from "../../components/_textSelect";
 //Utils
-import { GlobalContext } from "../../contexts/global";
 import models from "../../utils/models";
-import { ItemTypes } from "../../utils/enums";
-import { saveData } from "../../utils/functions";
 //Modal
 import ModalQuestion from "./confirmDeleteModal";
 
@@ -27,9 +24,6 @@ interface IModal {
 function ModalItem(props: IModal) {
     const [form, setForm] = useState({ ...models.item });
     const [modalQuestion, setModalQuestion] = useState(false);
-
-    const globalContext = useContext(GlobalContext);
-
 
     const onEnter = () => {
         if (props.selectedItem) {
@@ -57,18 +51,7 @@ function ModalItem(props: IModal) {
     }
 
     const onSave = () => {
-        // const obj = { ...globalContext };
-        // const items: any = { ...globalContext.data.items };
-        // if (props.selectedItem) {
-        //     const index = items[props.selectedItem.place].findIndex((el: any) => el.id === props.selectedItem.id);
-        //     items[props.selectedItem.place][index] = { ...form, dueDate: (form.dueDate as any) instanceof Date? (form.dueDate as unknown as Date).toLocaleDateString("en"): form.dueDate };
-        // } else {
-        //     items[ItemTypes.PENDING].push({ ...form, dueDate: (form.dueDate as any) instanceof Date? (form.dueDate as unknown as Date).toLocaleDateString("en"): form.dueDate });
-        // }
-        // obj.data.items = { ...items };
-        // globalContext.setContext({ ...obj })
-        // saveData(obj);
-        props.onNewItem(form)
+        props.onNewItem(form);
         onClose();
     }
 
