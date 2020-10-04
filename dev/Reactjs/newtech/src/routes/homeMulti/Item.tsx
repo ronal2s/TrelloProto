@@ -6,6 +6,8 @@ import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { Tag, Subtitle } from '../../globalStyles';
 import { COLORS } from '../../utils/enums';
+//stories
+import Card2 from "../../components/card/card";
 
 const dragSource = DragSource;
 
@@ -79,24 +81,13 @@ function Item(props: any) {
   }
 
   const selected = props.selectedFields.find((field: any) => props.name.title === field.title);
+  const subtitle = props.name.assignee !== "" ? 'assignee to ' + props.name.assignee : ""
   return props.connectDragSource(
     <div onClick={(e) => handleRowSelection(e.ctrlKey, e.shiftKey, props.index, props.name)}>
-      <Card style={{ marginBottom: 5, cursor: "pointer", ...getFieldStyle(false, selected) }} onClick={props.onClick} >
-        <CardContent>
-          <Typography component="h2">
-            {props.name.title}
-          </Typography>
-          {props.name.assignee != "" && <Subtitle>
-            assignee to {props.name.assignee}
-          </Subtitle>}
-          {props.name.tag.length > 0 && <Tag width={props.name.tag.length * 10} float="left"  >{props.name.tag}</Tag>}
-          <Tag width={85} color={COLORS.DEFAULT_ICON_COLOR} >{props.name.dueDate}</Tag>
-          <Typography component="h3">
-            {props.name.description}
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>);
+      {/* <Card style={{ marginBottom: 5, cursor: "pointer" ...getFieldStyle(false, selected) }} onClick={props.onClick} > */}
+      <Card2 title={props.name.title} subtitle={subtitle}
+        selected={selected} description={props.name.description} onClick={props.onClick} tags={[{text: props.name.tag, color: COLORS.PRIMARY}, {text: props.name.dueDate}]} />      
+    </div >);
 
 }
 

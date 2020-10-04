@@ -42,7 +42,7 @@ const CornerFab = styled.div(() => ({
 
 
 const Tag = styled.div((props: any) => ({
-    padding: 5, height: 15, backgroundColor: props.color ? props.color : COLORS.PRIMARY, borderRadius: 25,
+    padding: 5, height: 15, backgroundColor: props.color ? props.color : COLORS.GRAY, borderRadius: 25,
     width: props.width, color: "white", display: "flex", justifyContent: "center", alignItems: "center", float: props.float,
     fontWeight: 100, marginRight: 10
 }))

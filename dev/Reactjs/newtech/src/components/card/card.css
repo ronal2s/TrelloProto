@@ -1,0 +1,34 @@
+.card {
+    font-family: 'Indie Flower', cursive;
+}
+.card {
+    min-Height: 120px; 
+    width: 250px;
+    margin-Right: 30px;
+    margin-bottom: 10px; 
+    /* padding: 1rem;  */
+    float: left;
+    /* background-color: #ebecf0;  */
+    background-color: white; 
+    border-radius: 10px; 
+    font-weight: bold;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+    cursor: pointer;
+}
+
+.selected {
+    background-color: rgb(240, 140, 126);
+}
+
+.title {
+    font-weight: 400; 
+    font-size: 20
+}
+.subtitle {
+    font-weight: 300;
+    color: rgb(136, 136, 136);
+}
+
+.description {
+    font-weight: 400;
+}
