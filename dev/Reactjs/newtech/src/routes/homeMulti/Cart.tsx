@@ -6,17 +6,6 @@ import { GlobalContext } from '../../contexts/global';
 import { ContentCard } from '../../globalStyles';
 import Item from './Item';
 
-const styles = {
-  content: {
-    borderStyle: 'solid',
-    paddingTop: 25,
-    paddingBottom: 25,
-    marginLeft: 50,
-    width: 300,
-    height: 300,
-  },
-};
-
 const getDroppedPlace = {
   drop(props: any) {
     return props.id;

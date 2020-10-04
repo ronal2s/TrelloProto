@@ -1,27 +1,14 @@
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { CardContent, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
 //@ts-ignore
 import { DragSource } from 'react-dnd';
 //@ts-ignore
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { Tag, Subtitle } from '../../globalStyles';
 import { COLORS } from '../../utils/enums';
 //stories
-import Card2 from "../../components/card/card";
+import Card from "../../components/card/card";
 
 const dragSource = DragSource;
-
-const getFieldStyle = (isDragging: boolean, selected: boolean) => {
-  const style: any = {
-    // borderStyle: 'dashed',
-    // borderWidth: 1,
-    // height: 30,
-    // margin: 5,
-  };
-  style.backgroundColor = selected ? 'pink' : '';
-  style.opacity = isDragging ? 0.5 : 1;
-  return style;
-};
 
 const fieldSource = {
   beginDrag(props: any) {
@@ -74,7 +61,6 @@ function Item(props: any) {
   const handleRowSelection = (cmdKey: any, shiftKey: any, index: any, item: any) => {
     if (!cmdKey && !shiftKey) {
       props.onEditItem(item);
-      // alert("Heyyyyy loco")
     } else {
       props.handleSelection(index, cmdKey, shiftKey);
     }
@@ -84,8 +70,7 @@ function Item(props: any) {
   const subtitle = props.name.assignee !== "" ? 'assignee to ' + props.name.assignee : ""
   return props.connectDragSource(
     <div onClick={(e) => handleRowSelection(e.ctrlKey, e.shiftKey, props.index, props.name)}>
-      {/* <Card style={{ marginBottom: 5, cursor: "pointer" ...getFieldStyle(false, selected) }} onClick={props.onClick} > */}
-      <Card2 title={props.name.title} subtitle={subtitle}
+      <Card title={props.name.title} subtitle={subtitle}
         selected={selected} description={props.name.description} onClick={props.onClick} tags={[{text: props.name.tag, color: COLORS.PRIMARY}, {text: props.name.dueDate}]} />      
     </div >);
 

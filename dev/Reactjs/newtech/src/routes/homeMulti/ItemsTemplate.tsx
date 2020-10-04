@@ -24,7 +24,6 @@ const ItemsTemplate = ({ items }: any) => {
         </Typography>
       </CardContent>
     </Card>
-    {/* {field.title} */}
   </div>));
   return (<div>{rows}</div>);
 };

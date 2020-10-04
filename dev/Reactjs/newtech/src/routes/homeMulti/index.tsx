@@ -14,7 +14,7 @@ import Cart from './Cart'
 import FabButton from "../../components/fabButton/fabButton";
 //Modals
 import ModalItem from "./newItem";
-import CustomTextField from '../../components/_textField';
+import Searchbar from '../../components/searchBar/searchBar';
 
 
 function App() {
@@ -123,7 +123,7 @@ function App() {
     openModal();
   }
 
-  const handleInputs = (name: string, value: string) => {
+  const handleInputs = (value: string) => {
     const newItems: any = {};
     if (value.length) {
       newItems[ItemTypes.DONE] = searchData(data, ItemTypes.DONE, value);
@@ -139,7 +139,7 @@ function App() {
   return (
     <div >
       <h4>Use Shift or CTRL key to multi-select</h4>
-      <CustomTextField label="Search" name="search" value={search} onChange={handleInputs} />
+      <Searchbar label="Search" value={search} onChange={handleInputs} />
       <br /><br />
       <ItemsDragLayer />
       <CartContainer>
@@ -148,7 +148,6 @@ function App() {
         <Cart id={ItemTypes.DONE} fields={[...data.items.Done]} addItemsToCart={addItemsToCart} onNewPlace={(place: string) => setToPlace(place)} onSelectItem={onSelectItem} />
       </CartContainer>
       <FabButton openModal={openModal} />
-      {/* <ModalItem selectedItem={selectedItem} onClose={closeModal} open={modal} /> */}
       <ModalItem onNewItem={onNewItem} onDelete={onDelete} selectedItem={selectedItem} onClose={closeModal} open={modal} />
     </div>
   );
