@@ -53,7 +53,7 @@ function App() {
         });
         setBackupData({ items: { ...json } });
         setLoadingData(globalContext, false);
-      }, 5)
+      }, 5000)
     } else {
       setLoadingData(globalContext, false);
     }
